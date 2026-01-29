@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Gruba Sławomir — usługi ślusarskie: prefabrykacja i montaż konstrukcji stalowych, prace na placu budowy, remonty i budowa jednostek pływających." />
+  <title>Gruba Sławomir — Usługi ślusarskie</title>
+
+  <style>
+    :root{
+      --paper:#0f1419;        /* tło strony */
+      --ink:#e8edf2;          /* główny tekst */
+      --muted:#b7c1cc;        /* tekst pomocniczy (jaśniej dla czytelności) */
+
+      --primary:#1f6feb;     /* niebieski techniczny */
+      --accent:#f59e0b;      /* pomarańcz BHP */
+      --steel:#2b3440;       /* stalowy grafit */
+
+      --line: rgba(255,255,255,.12);
+      --card: rgba(31,39,48,.88);
+      --glass: rgba(31,39,48,.68);
+
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+
+      --r: 18px;
+      --r-soft: 18px 18px 24px 18px;
+      --r-card: 16px 20px 16px 24px;
+
+      --max: 1120px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 500px at 10% -10%, rgba(31,111,235,.18), transparent 60%),
+        radial-gradient(800px 500px at 90% 10%, rgba(245,158,11,.14), transparent 65%),
+        linear-gradient(180deg, #0f1419, #0b0f14);
+      line-height: 1.65;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:26px}
+
+    /* ======= Topbar ======= */
+    .topbar{
+      position: sticky; top:0; z-index: 50;
+      background: rgba(15,20,25,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .topbar::after{
+      content:"";
+      display:block;
+      height:2px;
+      background: linear-gradient(90deg, transparent, rgba(31,111,235,.45), rgba(245,158,11,.45), transparent);
+      opacity:.95;
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding: 10px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight: 900;
+      letter-spacing: .02em;
+      padding-left: 8px;
+      max-width: 340px;
+    }
+    .brand-meta{display:flex; flex-direction:column; line-height:1.1}
+    .brand-title{
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--ink);
+    }
+    .brand-sub{
+      font-size: 12px;
+      color: rgba(255,255,255,.75);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    /* rail z menu: 1 linia + przewijanie poziome na małych ekranach */
+    .nav-rail{
+      display:flex; gap:8px; align-items:center;
+      padding: 6px;
+      border-radius: 16px;
+      background: rgba(31,39,48,.70);
+      border: 1px solid rgba(255,255,255,.12);
+      overflow-x: auto;
+      scrollbar-width: none;
+      max-width: 620px;
+    }
+    .nav-rail::-webkit-scrollbar{display:none;}
+
+    .links{
+      display:flex;
+      gap:8px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+    .links a{
+      font-weight: 900; font-size: 13px;
+      color: #e8edf2;
+      padding: 8px 14px;
+      border-radius: 14px;
+      background: rgba(15,20,25,.55);
+      border: 1px solid rgba(255,255,255,.14);
+      transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
+    }
+    .links a:hover{
+      color:#0b0f14;
+      background: linear-gradient(135deg, var(--accent), #ffb703);
+      border-color: transparent;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(0,0,0,.35);
+    }
+
+    .actions{display:flex; gap:8px; align-items:center}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(31,39,48,.70);
+      font-weight: 900;
+      cursor:pointer;
+      color: var(--ink);
+      transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
+    }
+    .btn:hover{transform: translateY(-1px); box-shadow: 0 12px 28px rgba(0,0,0,.35)}
+    .btn.primary{
+      border: 0;
+      color: #0b0f14;
+      background: linear-gradient(135deg, var(--accent), #ffb703);
+    }
+    .hamburger{display:none}
+
+    /* ======= Hero ======= */
+    .hero{
+      padding: 34px 0 10px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items:stretch;
+    }
+    .frame{
+      border-radius: var(--r-soft);
+      border: 1px solid var(--line);
+      background: var(--glass);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .frame::before{
+      content:"";
+      position:absolute; inset: -120px -140px auto auto;
+      width: 460px; height: 340px;
+      background:
+        radial-gradient(closest-side, rgba(31,111,235,.22), transparent 70%),
+        radial-gradient(closest-side, rgba(245,158,11,.18), transparent 70%);
+      transform: rotate(10deg);
+      filter: blur(.2px);
+    }
+    .hero-left{padding: 22px; position:relative; transform: translateY(6px)}
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(245,158,11,.18);
+      border: 1px solid rgba(245,158,11,.35);
+      color: #ffe1a6;
+      font-weight: 950;
+      font-size: 13px;
+      letter-spacing: .01em;
+    }
+    h1{
+      margin: 14px 0 10px;
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+    .lead{
+      margin:0;
+      color: var(--muted);
+      font-weight: 750;
+      font-size: 17px;
+      max-width: 80ch;
+    }
+    .cta{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top: 16px;
+    }
+    .fine{
+      margin-top: 14px;
+      display:flex; gap:10px; flex-wrap:wrap;
+      color: var(--muted);
+      font-weight: 850;
+      font-size: 14px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(31,39,48,.95);
+      border: 1px solid rgba(245,158,11,.45);
+      color:#fef3c7;
+      font-weight: 900;
+      letter-spacing: .01em;
+    }
+
+    .hero-right{
+      display:grid; gap: 12px;
+      padding: 16px;
+      transform: translateY(-6px);
+    }
+    .card{
+      border-radius: var(--r-card);
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      padding: 16px;
+    }
+    .title-row{
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:baseline;
+    }
+    .label{
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+    .big{
+      font-size: 18px;
+      font-weight: 950;
+    }
+    .contact-lines{
+      margin-top: 10px;
+      color: var(--muted);
+      font-weight: 850;
+      line-height: 1.9;
+    }
+    .inline{
+      text-decoration: underline;
+      text-decoration-color: rgba(245,158,11,.55);
+      font-weight: 950;
+      color: #ffffff;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    .mini{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:12px;
+      background: rgba(15,20,25,.35);
+    }
+    .mini .t{font-weight:950; color: var(--ink)}
+    .mini .s{color:var(--muted); font-weight:850; font-size:13px; margin-top:2px}
+
+    /* ======= Sections ======= */
+    section{padding: 34px 0}
+    .section-head{
+      display:flex; justify-content:space-between; gap:14px; align-items:flex-end;
+      margin-bottom: 14px;
+    }
+    .section-head h2{margin:0; font-size: 26px; letter-spacing: -.01em;}
+    .section-head p{margin:0; color: var(--muted); font-weight: 780; max-width: 76ch;}
+
+    /* ======= USŁUGI ======= */
+    .grid3{display:grid; grid-template-columns:1.05fr .95fr 1.1fr; gap: 14px}
+    .service{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(31,39,48,.88);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      padding: 18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .service:nth-child(2){transform: translateY(10px)}
+    .service:nth-child(3){transform: translateY(-8px)}
+    .service::after{
+      content:"";
+      position:absolute; inset:auto -50px -50px auto;
+      width: 170px; height: 170px;
+      background: radial-gradient(circle at 30% 30%, rgba(31,111,235,.22), transparent 65%);
+      border-radius: 999px;
+    }
+    .tag{
+      display:inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(31,111,235,.18);
+      border: 1px solid rgba(31,111,235,.35);
+      color: #cfe3ff;
+      font-weight: 950;
+      font-size: 12px;
+    }
+    .service h3{margin:10px 0 6px; font-size: 18px}
+    .service p{margin:0; color: var(--muted); font-weight: 760}
+
+    /* O mnie / Jak pracuję */
+    .split{display:grid; grid-template-columns: 1.05fr .95fr; gap: 14px;}
+    .split .card:first-child{transform: translateY(8px)}
+    .split .card:last-child{transform: translateY(-6px)}
+    .list{margin: 10px 0 0; padding: 0 0 0 18px; color: var(--muted); font-weight: 800;}
+
+    /* ======= GALERIA ======= */
+    .gallery{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    .gallery-item{
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(31,39,48,.88);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    }
+    .gallery-item img{
+      width:100%;
+      height:320px;
+      object-fit:cover;
+      display:block;
+      filter: saturate(1.02) contrast(1.03);
+    }
+    .gallery-item figcaption{
+      padding:10px 14px;
+      font-size:13px;
+      font-weight:900;
+      color:#e8edf2;
+      background: linear-gradient(180deg, rgba(15,20,25,.65), rgba(15,20,25,.95));
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+
+    /* Kontakt */
+    .contact-grid{display:grid; grid-template-columns: 1.1fr .9fr; gap: 14px;}
+    .contact-grid .card:first-child{transform: translateY(6px)}
+    .contact-grid .card:last-child{transform: translateY(-6px)}
+
+    .footer{
+      border-top: 1px solid rgba(255,255,255,.10);
+      padding: 18px 0 48px;
+      color: var(--muted);
+      font-weight: 850;
+    }
+    .foot{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;}
+    .footer a{color: var(--ink)}
+    .footer a:hover{color: #ffffff; text-decoration: underline; text-decoration-color: rgba(245,158,11,.55);}
+
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr}
+      h1{font-size: 36px}
+      .grid3{grid-template-columns:1fr}
+      .split{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .hero-left,.hero-right,.service,.split .card,.contact-grid .card{transform:none}
+      .nav-rail{display:none}
+      .links{display:none}
+      .hamburger{display:inline-flex}
+      .gallery{grid-template-columns:1fr}
+      .gallery-item img{height:220px}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Strona główna">
+        <span class="brand-meta">
+          <span class="brand-title">GRUBA SŁAWOMIR</span>
+          <span class="brand-sub">usługi ślusarskie • konstrukcje stalowe • jednostki pływające</span>
+        </span>
+      </a>
+
+      <div class="nav-rail">
+        <nav class="links" aria-label="Nawigacja">
+          <a href="#uslugi">Usługi</a>
+          <a href="#omnie">O mnie</a>
+          <a href="#jak">Jak pracuję</a>
+          <a href="#zdjecia">Zdjęcia</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="tel:+48665670280">Zadzwoń</a>
+        <a class="btn primary" href="#kontakt">Kontakt</a>
+        <button class="btn hamburger" id="menuBtn" aria-label="Otwórz menu">Menu</button>
+      </div>
+    </div>
+
+    <div class="container" id="mobileMenu" style="display:none; padding-top:0">
+      <div class="card" style="padding:12px">
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn" href="#uslugi">Usługi</a>
+          <a class="btn" href="#omnie">O mnie</a>
+          <a class="btn" href="#jak">Jak pracuję</a>
+          <a class="btn" href="#zdjecia">Zdjęcia</a>
+          <a class="btn primary" href="#kontakt">Kontakt</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <!-- HERO -->
+    <div class="hero">
+      <section class="frame hero-left" aria-label="Wprowadzenie">
+        <div class="kicker">🔩 Konstrukcje stalowe • prefabrykacja i montaż • prace na budowie • jednostki pływające</div>
+
+        <h1>Konstrukcje stalowe i usługi ślusarskie</h1>
+
+        <p class="lead">
+          Oferuję kompleksowe usługi w zakresie konstrukcji stalowych — od prefabrykacji elementów w kontrolowanych warunkach,
+          po ich montaż bezpośrednio na placu budowy. Realizuję prace na każdym etapie: przygotowanie, wykonanie,
+          precyzyjne dopasowanie oraz trwały montaż zgodnie z dokumentacją techniczną i obowiązującymi normami.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="mailto:slawek-uslugi-slusarskie@wp.pl?subject=Zapytanie%20—%20konstrukcje%20stalowe%20/%20us%C5%82ugi%20%C5%9Blusarskie">Napisz email</a>
+          <a class="btn" href="tel:+48665670280">Zadzwoń</a>
+          <a class="btn" href="#uslugi">Zobacz usługi</a>
+        </div>
+
+        <div class="fine">
+          <span class="pill">✅ Prefabrykacja i montaż zgodnie z dokumentacją</span>
+          <span class="pill">🧰 Prace na placu budowy i dopasowanie</span>
+          <span class="pill">⛴️ Remonty i budowa jednostek pływających</span>
+        </div>
+      </section>
+
+      <aside class="frame hero-right" aria-label="Szybkie informacje">
+        <div class="card">
+          <div class="title-row">
+            <span class="label">Kontakt</span>
+            <span class="big">GRUBA SŁAWOMIR</span>
+          </div>
+          <div class="contact-lines">
+            📞 <a class="inline" href="tel:+48665670280">+48 665 670 280</a><br/>
+            ✉️ <a class="inline" href="mailto:slawek-uslugi-slusarskie@wp.pl">slawek-uslugi-slusarskie@wp.pl</a><br/>
+            🧾 NIP: <span class="inline">5881955309</span><br/>
+            🧾 REGON: <span class="inline">220105131</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="title-row">
+            <span class="label">Szybko</span>
+            <span class="big">Zakres prac</span>
+          </div>
+
+          <div class="mini-grid">
+            <div class="mini">
+              <div class="t">Prefabrykacja</div>
+              <div class="s">elementy w warsztacie</div>
+            </div>
+            <div class="mini">
+              <div class="t">Montaż</div>
+              <div class="s">na placu budowy</div>
+            </div>
+            <div class="mini">
+              <div class="t">Konstrukcje</div>
+              <div class="s">hale, wiaty, nośne</div>
+            </div>
+            <div class="mini">
+              <div class="t">Jednostki</div>
+              <div class="s">remonty i budowa</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- USŁUGI -->
+    <section id="uslugi">
+      <div class="section-head">
+        <h2>Zakres usług</h2>
+        <p>Prefabrykacja, montaż konstrukcji stalowych oraz prace przy jednostkach pływających — w oparciu o dokumentację i normy.</p>
+      </div>
+
+      <div class="grid3">
+        <div class="service">
+          <span class="tag">Prefabrykacja</span>
+          <h3>Prefabrykacja konstrukcji stalowych</h3>
+          <p>
+            Przygotowanie elementów w kontrolowanych warunkach: docinanie, dopasowanie, trasowanie, wiercenie
+            oraz kompletowanie pod montaż. Prefabrykacja skraca czas realizacji inwestycji i zwiększa precyzję wykonania.
+          </p>
+        </div>
+
+        <div class="service">
+          <span class="tag">Montaż</span>
+          <h3>Montaż na placu budowy</h3>
+          <p>
+            Montaż konstrukcji stalowych o różnym stopniu skomplikowania: hale, wiaty, konstrukcje nośne,
+            elementy wsporcze oraz obiekty przemysłowe i użytkowe. Stabilność, bezpieczeństwo i geometria to podstawa.
+          </p>
+        </div>
+
+        <div class="service">
+          <span class="tag">Jednostki</span>
+          <h3>Remonty i budowa jednostek pływających</h3>
+          <p>
+            Naprawy, modernizacje i wzmacnianie konstrukcji: wymiana zużytych elementów, usuwanie uszkodzeń
+            oraz przywracanie pełnej funkcjonalności. Realizuję również budowę jednostek od podstaw według wymagań technicznych.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- O MNIE -->
+    <section id="omnie">
+      <div class="section-head">
+        <h2>O mnie</h2>
+        <p>Rzetelna wiedza techniczna, doświadczenie i sprawdzone rozwiązania — niezależnie od skali projektu.</p>
+      </div>
+
+      <div class="card">
+        <p style="margin:0; color:var(--muted); font-weight:800">
+          Każde zlecenie realizuję w oparciu o dokumentację techniczną, obowiązujące normy oraz praktyczne doświadczenie.
+          Zapewniam indywidualne podejście, fachowe doradztwo, terminowość i solidność wykonania — od pojedynczych elementów,
+          po większe konstrukcje przemysłowe oraz prace związane z jednostkami pływającymi.
+          Swoją ofertę kieruję do klientów indywidualnych, firm budowlanych, stoczni oraz inwestorów.
+        </p>
+      </div>
+    </section>
+
+    <!-- JAK PRACUJĘ -->
+    <section id="jak">
+      <div class="section-head">
+        <h2>Jak pracuję</h2>
+      </div>
+
+      <div class="split">
+        <div class="card">
+          <div class="label">1. Ustalenie</div>
+          <div class="big" style="margin-top:6px">Kontakt, dokumentacja i wycena</div>
+          <ul class="list">
+            <li>Zakres prac (prefabrykacja / montaż / remont / budowa jednostki)</li>
+            <li>Dokumentacja, wymiary, rysunki, zdjęcia miejsca montażu</li>
+            <li>Ustalenie terminu, logistyki i sposobu realizacji</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="label">2. Realizacja</div>
+          <div class="big" style="margin-top:6px">Precyzyjnie i zgodnie z normami</div>
+          <ul class="list">
+            <li>Prefabrykacja elementów w kontrolowanych warunkach</li>
+            <li>Montaż na placu budowy i precyzyjne dopasowanie</li>
+            <li>Kontrola końcowa, poprawki jeśli wymagane, odbiór prac</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Zdjęcia -->
+    <section id="zdjecia">
+      <div class="section-head">
+        <h2>Nasze Realizacje</h2>
+      </div>
+
+      <div class="gallery">
+  <figure class="gallery-item">
+    <img src="img/realizacja1.png" alt="Realizacja 1">
+    <figcaption>Realizacja 1</figcaption>
+  </figure>
+
+  <figure class="gallery-item">
+    <img src="img/realizacja2.png" alt="Realizacja 2">
+    <figcaption>Realizacja 2</figcaption>
+  </figure>
+
+  <figure class="gallery-item">
+    <img src="img/realizacja3.png" alt="Realizacja 3">
+    <figcaption>Realizacja 3</figcaption>
+  </figure>
+
+  <figure class="gallery-item">
+    <img src="img/realizacja4.png" alt="Realizacja 4">
+    <figcaption>Realizacja 4</figcaption>
+  </figure>
+</div>
+
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt">
+      <div class="section-head">
+        <h2>Kontakt</h2>
+        <p>Telefon i email — bez formularzy. Odpisuję możliwie szybko.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="card">
+          <div class="label">Szybki kontakt</div>
+          <div style="margin-top:10px; color:var(--muted); font-weight:850; line-height:1.9">
+            📞 <a class="inline" href="tel:+48665670280">+48 665 670 280</a><br/>
+            ✉️ <a class="inline" href="mailto:slawek-uslugi-slusarskie@wp.pl">slawek-uslugi-slusarskie@wp.pl</a><br/>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px">
+            <a class="btn primary" href="tel:+48665670280">Zadzwoń</a>
+            <a class="btn" href="mailto:slawek-uslugi-slusarskie@wp.pl?subject=Zapytanie%20—%20konstrukcje%20stalowe%20/%20us%C5%82ugi%20%C5%9Blusarskie">Wyślij email</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="label">Dane firmy</div>
+          <div class="big" style="margin-top:8px">GRUBA SŁAWOMIR — USŁUGI ŚLUSARSKIE</div>
+          <p style="margin:10px 0 0; color:var(--muted); font-weight:800; line-height:1.9">
+            NIP: 5881955309<br/>
+            REGON: 220105131<br/>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="foot">
+        <span>© <span id="year"></span> GRUBA SŁAWOMIR</span>
+        <span><a href="#top">Do góry ↑</a></span>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // mobile menu
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    if(btn){
+      btn.addEventListener('click', () => {
+        const open = menu.style.display === 'block';
+        menu.style.display = open ? 'none' : 'block';
+        btn.textContent = open ? 'Menu' : 'Zamknij';
+      });
+    }
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
